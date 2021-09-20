@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  frontend-builder:
+    container_name: tdd-sample-frontend-builder
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/frontend
+    command: /bin/bash
+    stdin_open: true
+
+  backend-builder:
+    container_name: tdd-sample-backend-builder
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    volumes:
+      - ./backend:/backend
+    command: /bin/bash
+    stdin_open: true
+    environment:
+      - SPANNER_EMULATOR_HOST=spanner:9010
+      - SPANNER_CONNECTION_STRING=projects/test-project/instances/test-instance/databases/test-database
+
+  spanner:
+    image: gcr.io/cloud-spanner-emulator/emulator:1.2.0
+    ports:
+      - "9010:9010"
+      - "9020:9020"
+
+  spanner-init:
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:332.0.0-slim
+    command: >
+      bash -c 'gcloud config configurations create emulator &&
+              gcloud config set auth/disable_credentials true &&
+              gcloud config set project $${PROJECT_ID} &&
+              gcloud config set api_endpoint_overrides/spanner $${SPANNER_EMULATOR_URL} &&
+              gcloud config set auth/disable_credentials true &&
+              gcloud spanner instances create $${INSTANCE_NAME} --config=emulator-config --description=Emulator --nodes=1'
+    environment:
+      PROJECT_ID: "test-project"
+      SPANNER_EMULATOR_URL: "http://spanner:9020/"
+      INSTANCE_NAME: "test-instance"
+      DATABASE_NAME: "test-database"

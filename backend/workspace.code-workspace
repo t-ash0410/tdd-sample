@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "internal"
+		},
+		{
+			"path": "pkg"
+		},
+		{
+			"path": "test"
+		}
+	],
+	"settings": {}
+}
