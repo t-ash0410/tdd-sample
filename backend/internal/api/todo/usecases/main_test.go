@@ -3,13 +3,14 @@ package usecases_test
 import (
 	"testing"
 
+	"github.com/t-ash0410/tdd-sample/backend/internal/api/todo/interfaces"
 	"github.com/t-ash0410/tdd-sample/backend/internal/api/todo/usecases"
 	"github.com/t-ash0410/tdd-sample/backend/test/mock"
 	"github.com/t-ash0410/tdd-sample/backend/test/mock/todo"
 )
 
-var list usecases.ListUsecase
-var add usecases.AddUsecase
+var list interfaces.IListUsecase
+var add interfaces.IAddUsecase
 
 func TestMain(m *testing.M) {
 	setup()

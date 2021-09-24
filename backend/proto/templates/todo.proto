@@ -1,0 +1,24 @@
+syntax = "proto3";
+option go_package = "github.com/t-ash0410/tdd-sample/backend/proto/generates/todo";
+package todo;
+import "google/protobuf/empty.proto";
+
+service Todo {
+  rpc List(google.protobuf.Empty) returns (TaskList) {}
+  rpc Add(AddTaskRequest) returns (google.protobuf.Empty) {}
+}
+
+message TaskList {
+  repeated Task Tasks = 1;
+}
+
+message Task {
+  string Id = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message AddTaskRequest {
+  string Name = 1;
+  string Description = 2;
+}

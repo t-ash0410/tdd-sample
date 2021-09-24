@@ -1,17 +1,23 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "internal"
-		},
-		{
-			"path": "pkg"
-		},
-		{
-			"path": "test"
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "cmd"
+    },
+    {
+      "path": "proto"
+    },
+    {
+      "path": "internal"
+    },
+    {
+      "path": "pkg"
+    },
+    {
+      "path": "test"
+    }
+  ],
+  "settings": {}
 }
