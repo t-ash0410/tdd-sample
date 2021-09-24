@@ -2,27 +2,21 @@ package usecases_test
 
 import (
 	"testing"
-	"time"
 
 	"github.com/t-ash0410/tdd-sample/backend/internal/api/todo/entities"
 )
 
 func TestList(t *testing.T) {
 	t.Run("success", func(t *testing.T) {
-		task := entities.Task{
-			Id:          "TestList_success",
-			Name:        "success",
-			Description: "success",
-			UpdatedAt:   time.Now(),
-		}
-		add.Handle(task)
+		name := "success"
+		add.Handle(name, "success")
 
 		var result []entities.Task
 		list.Handle(&result)
 
 		exists := false
 		for _, v := range result {
-			if v.Id == task.Id {
+			if v.Name == name {
 				exists = true
 				break
 			}
