@@ -19,6 +19,6 @@ services:
       context: .
       dockerfile: ./rpc.todo.Dockerfile
     environment:
-      - SPANNER_EMULATOR_HOST=spanner:9010
+      - SPANNER_EMULATOR_HOST=host.docker.internal:9010
       - DB_CONNECTION_STRING=projects/test-project/instances/test-instance/databases/test-database
       - TODO_SERVICE_LISTEN_PORT=50001

@@ -19,9 +19,7 @@ func NewTodoServer(factory interfaces.IUsecaseFactory) pb.TodoServer {
 	return &TodoServer{factory: factory}
 }
 
-func (s *TodoServer) List(ctx context.Context, _ *empty.Empty) (*pb.TaskList, error) {
-	log.Print("serve.")
-	
+func (s *TodoServer) List(ctx context.Context, _ *empty.Empty) (*pb.TaskList, error) {	
 	list, close := s.factory.CreateList(ctx)
 	defer close()
 
