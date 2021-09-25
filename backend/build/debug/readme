@@ -1,0 +1,1 @@
+Create .ssh directory and place the credentials(id_rsa & id_rsa.pub & config) in it

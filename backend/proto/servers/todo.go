@@ -2,6 +2,7 @@ package servers
 
 import (
 	"context"
+	"log"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/pkg/errors"
@@ -19,6 +20,8 @@ func NewTodoServer(factory interfaces.IUsecaseFactory) pb.TodoServer {
 }
 
 func (s *TodoServer) List(ctx context.Context, _ *empty.Empty) (*pb.TaskList, error) {
+	log.Print("serve.")
+	
 	list, close := s.factory.CreateList(ctx)
 	defer close()
 

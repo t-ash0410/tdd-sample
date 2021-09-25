@@ -17,7 +17,7 @@ services:
     container_name: tdd-sample-backend-builder
     build:
       context: .
-      dockerfile: ./backend/Dockerfile
+      dockerfile: ./backend/build/develop/Dockerfile
     ports:
       - "8080:8080"
     volumes:

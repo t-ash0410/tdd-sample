@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
@@ -23,4 +24,5 @@ func main() {
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", listenPort), nil); err != nil {
 		panic(err)
 	}
+	log.Print("listen...")
 }
