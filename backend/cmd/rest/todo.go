@@ -12,7 +12,7 @@ import (
 const (
 	rpcServerNameKey         = "RPC_SERVER_NAME"
 	todoServiceListenPortKey = "TODO_SERVICE_LISTEN_PORT"
-	listenPortKey            = "LISTEN_PORT"
+	listenPortKey            = "PORT"
 )
 
 func main() {
