@@ -4,21 +4,20 @@ services:
   rest-todo:
     container_name: rest-todo
     build:
-      context: .
-      dockerfile: ./rest.todo.Dockerfile
+      context: ./rest
+      dockerfile: todo.Dockerfile
     ports:
       - "8888:8888"
     environment:
-      - RPC_SERVER_NAME=rpc-todo
-      - TODO_SERVICE_LISTEN_PORT=50001
-      - LISTEN_PORT=8888
+      - PORT=8888
+      - RPC_SERVER_NAME=rpc-todo:50001
 
   rpc-todo:
     container_name: rpc-todo
     build:
-      context: .
-      dockerfile: ./rpc.todo.Dockerfile
+      context: ./rpc
+      dockerfile: todo.Dockerfile
     environment:
+      - PORT=50001
       - SPANNER_EMULATOR_HOST=host.docker.internal:9010
       - DB_CONNECTION_STRING=projects/test-project/instances/test-instance/databases/test-database
-      - TODO_SERVICE_LISTEN_PORT=50001
