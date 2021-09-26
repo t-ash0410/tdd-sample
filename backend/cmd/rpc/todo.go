@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	portKey             = "TODO_SERVICE_LISTEN_PORT"
+	portKey             = "PORT"
 	connectionStringKey = "DB_CONNECTION_STRING"
 )
 
