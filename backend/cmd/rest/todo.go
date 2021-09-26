@@ -10,19 +10,17 @@ import (
 )
 
 const (
-	rpcServerNameKey         = "RPC_SERVER_NAME"
-	todoServiceListenPortKey = "TODO_SERVICE_LISTEN_PORT"
 	listenPortKey            = "PORT"
+	rpcServerNameKey         = "RPC_SERVER_NAME"
 )
 
 func main() {
 	server := os.Getenv(rpcServerNameKey)
-	port := os.Getenv(todoServiceListenPortKey)
-	handler := handlers.NewTodoHandler(fmt.Sprintf("%s:%s", server, port))
+	handler := handlers.NewTodoHandler(server)
 	http.HandleFunc("/todo/list", handler.ListHandler)
 	listenPort := os.Getenv(listenPortKey)
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", listenPort), nil); err != nil {
-		panic(err)
+		log.Fatalf("failed to listen and serve: %v", err)
 	}
 	log.Print("listen...")
 }

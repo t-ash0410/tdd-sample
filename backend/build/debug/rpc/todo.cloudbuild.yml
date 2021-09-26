@@ -1,0 +1,24 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc-todo-image:tag1",
+        "-f",
+        "./rpc.todo.Dockerfile",
+        ".",
+      ]
+    env:
+      - SPANNER_EMULATOR_HOST=spanner
+      - DB_CONNECTION_STRING=connection_string
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc-todo-image:tag1",
+      ]
+images:
+  [
+    "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc-todo-image:tag1",
+  ]
