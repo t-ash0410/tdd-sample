@@ -6,6 +6,7 @@ import (
 	"errors"
 	"log"
 	"net/http"
+	"time"
 
 	pb "github.com/t-ash0410/tdd-sample/backend/proto/generates/todo"
 	"google.golang.org/grpc"
@@ -31,7 +32,12 @@ func (h *TodoHandler) ListHandler(res http.ResponseWriter, req *http.Request) {
 		panic(errors.New("bat method."))
 	}
 
-	h.ExecuteRpc(res, func(ctx context.Context, conn grpc.ClientConnInterface) {
+	h.ExecuteRpc(res, func(conn *grpc.ClientConn) {
+		defer conn.Close()
+		
+		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer cancel()
+
 		client := pb.NewTodoClient(conn)
 
 		log.Print("Request to RPC server.")

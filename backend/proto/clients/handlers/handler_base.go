@@ -1,12 +1,10 @@
 package handlers
 
 import (
-	"context"
 	"crypto/tls"
 	"crypto/x509"
 	"log"
 	"net/http"
-	"time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -22,11 +20,8 @@ func (h *HandlerBase) Write500Error(res http.ResponseWriter, err error) {
 	log.Fatal(err)
 }
 
-func (h *HandlerBase) ExecuteRpc(res http.ResponseWriter, f func(ctx context.Context, conn grpc.ClientConnInterface)) {
+func (h *HandlerBase) ExecuteRpc(res http.ResponseWriter, f func(conn *grpc.ClientConn)) {
 	log.Print("Execute RPC.")
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
 
 	opts, err := h.createConnectionOpts()
 	if err != nil {
@@ -34,18 +29,21 @@ func (h *HandlerBase) ExecuteRpc(res http.ResponseWriter, f func(ctx context.Con
 		return
 	}
 
-	conn, err := grpc.DialContext(ctx, h.rpcAddress, opts...)
+	conn, err := grpc.Dial(h.rpcAddress, opts...)
 	if err != nil {
 		h.Write500Error(res, err)
 		return
 	}
-	defer conn.Close()
-	f(ctx, conn)
+	
+	f(conn)
 }
 
 func (h *HandlerBase) createConnectionOpts() ([]grpc.DialOption, error) {
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithAuthority(h.rpcAddress))
+
+	// opts = append(opts, grpc.WithInsecure())
+
 	systemRoots, err := x509.SystemCertPool()
 	if err != nil {
 		return nil, err
@@ -54,5 +52,6 @@ func (h *HandlerBase) createConnectionOpts() ([]grpc.DialOption, error) {
 		RootCAs: systemRoots,
 	})
 	opts = append(opts, grpc.WithTransportCredentials(cred))
+
 	return opts, nil
 }
