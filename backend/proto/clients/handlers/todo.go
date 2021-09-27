@@ -48,7 +48,7 @@ func (h *TodoHandler) ListHandler(res http.ResponseWriter, req *http.Request) {
 			return
 		}
 
-		log.Printf("Return response json %s.", json)
+		log.Printf("Return response json %s.", bytes)
 		res.WriteHeader(200)
 		res.Write(bytes)
 	})
