@@ -6,7 +6,7 @@ steps:
         "-t",
         "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc-todo-image:tag1",
         "-f",
-        "./rpc.todo.Dockerfile",
+        "./todo.Dockerfile",
         ".",
       ]
     env:

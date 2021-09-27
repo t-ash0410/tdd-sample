@@ -6,12 +6,11 @@ steps:
         "-t",
         "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rest-todo-image:tag1",
         "-f",
-        "./rest.todo.Dockerfile",
+        "./todo.Dockerfile",
         ".",
       ]
     env:
       - RPC_SERVER_NAME=server
-      - TODO_SERVICE_LISTEN_PORT=8080
   - name: "gcr.io/cloud-builders/docker"
     args:
       [
