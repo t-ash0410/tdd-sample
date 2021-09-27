@@ -2,6 +2,7 @@ package servers
 
 import (
 	"context"
+	"log"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/pkg/errors"
@@ -19,6 +20,8 @@ func NewTodoServer(factory interfaces.IUsecaseFactory) pb.TodoServer {
 }
 
 func (s *TodoServer) List(ctx context.Context, _ *empty.Empty) (*pb.TaskList, error) {
+	log.Print("Start function `List`.")
+
 	list, close := s.factory.CreateList(ctx)
 	defer close()
 
@@ -42,6 +45,8 @@ func (s *TodoServer) List(ctx context.Context, _ *empty.Empty) (*pb.TaskList, er
 }
 
 func (s *TodoServer) Add(ctx context.Context, task *pb.AddTaskRequest) (*empty.Empty, error) {
+	log.Print("Start function `Add`.")
+
 	add, close := s.factory.CreateAdd(ctx)
 	defer close()
 

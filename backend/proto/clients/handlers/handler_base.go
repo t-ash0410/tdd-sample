@@ -20,6 +20,8 @@ func (h *HandlerBase) Write500Error(res http.ResponseWriter, err error) {
 }
 
 func (h *HandlerBase) ExecuteRpc(res http.ResponseWriter, f func(ctx context.Context, conn grpc.ClientConnInterface)) {
+	log.Print("Execute RPC.")
+
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 

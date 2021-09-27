@@ -4,9 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
+	"log"
 	"net/http"
-	"unsafe"
 
 	pb "github.com/t-ash0410/tdd-sample/backend/proto/generates/todo"
 	"google.golang.org/grpc"
@@ -26,6 +25,8 @@ func NewTodoHandler(rpcAddress string) TodoHandler {
 }
 
 func (h *TodoHandler) ListHandler(res http.ResponseWriter, req *http.Request) {
+	log.Print("Start function `List`.")
+
 	if req.Method != http.MethodGet {
 		panic(errors.New("bat method."))
 	}
@@ -33,17 +34,22 @@ func (h *TodoHandler) ListHandler(res http.ResponseWriter, req *http.Request) {
 	h.ExecuteRpc(res, func(ctx context.Context, conn grpc.ClientConnInterface) {
 		client := pb.NewTodoClient(conn)
 
+		log.Print("Request to RPC server.")
 		list, err := client.List(ctx, &emptypb.Empty{})
 		if err != nil {
 			h.Write500Error(res, err)
 			return
 		}
+
+		log.Printf("Marshalize json %+v.", list)
 		bytes, err := json.Marshal(list)
 		if err != nil {
 			h.Write500Error(res, err)
 			return
 		}
-		json := *(*string)(unsafe.Pointer(&bytes))
-		fmt.Fprintf(res, json)
+
+		log.Printf("Return response json %s.", json)
+		res.WriteHeader(200)
+		res.Write(bytes)
 	})
 }

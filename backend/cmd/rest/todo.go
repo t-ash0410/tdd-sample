@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	listenPortKey            = "PORT"
-	rpcServerNameKey         = "RPC_SERVER_NAME"
+	listenPortKey    = "PORT"
+	rpcServerNameKey = "RPC_SERVER_NAME"
 )
 
 func main() {
