@@ -4,7 +4,7 @@ steps:
       [
         "build",
         "-t",
-        "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc_todo-image:tag1",
+        "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc-todo-image:tag1",
         "-f",
         "./rpc_todo.Dockerfile",
         ".",
@@ -13,9 +13,9 @@ steps:
     args:
       [
         "push",
-        "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc_todo-image:tag1",
+        "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc-todo-image:tag1",
       ]
 images:
   [
-    "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc_todo-image:tag1",
+    "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc-todo-image:tag1",
   ]
