@@ -1,17 +1,17 @@
 version: "3"
 
 services:
-  frontend-builder:
-    container_name: tdd-sample-frontend-builder
-    build:
-      context: .
-      dockerfile: ./frontend/Dockerfile
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/frontend
-    command: /bin/bash
-    stdin_open: true
+  # frontend-builder:
+  #   container_name: tdd-sample-frontend-builder
+  #   build:
+  #     context: .
+  #     dockerfile: ./frontend/Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./frontend:/frontend
+  #   command: /bin/bash
+  #   stdin_open: true
 
   backend-builder:
     container_name: tdd-sample-backend-builder
