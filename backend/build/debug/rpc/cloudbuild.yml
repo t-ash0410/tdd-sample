@@ -4,16 +4,14 @@ steps:
       [
         "build",
         "-t",
-        "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rpc-todo-image:$BUILD_ID",
-        "-f",
-        "./todo.Dockerfile",
+        "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rpc:$BUILD_ID",
         ".",
       ]
   - name: "gcr.io/cloud-builders/docker"
     args:
       [
         "push",
-        "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rpc-todo-image:$BUILD_ID",
+        "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rpc:$BUILD_ID",
       ]
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     entrypoint: gcloud
@@ -23,7 +21,7 @@ steps:
         "deploy",
         "tdd-sample-rest-todo",
         "--image",
-        "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rpc-todo-image:$BUILD_ID",
+        "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rpc:$BUILD_ID",
         "--region",
         "us-central1",
         "--update-env-vars",
@@ -31,5 +29,5 @@ steps:
       ]
 images:
   [
-    "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rpc-todo-image:$BUILD_ID",
+    "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rpc:$BUILD_ID",
   ]

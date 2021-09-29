@@ -1,0 +1,33 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rest:$BUILD_ID",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rest:$BUILD_ID",
+      ]
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      [
+        "run",
+        "deploy",
+        "tdd-sample-rest-todo",
+        "--image",
+        "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rest:$BUILD_ID",
+        "--region",
+        "us-central1",
+        "--update-env-vars",
+        "RPC_SERVER_NAME=service_url:443",
+      ]
+images:
+  [
+    "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rest:$BUILD_ID",
+  ]

@@ -1,3 +1,6 @@
+//go:build integrate
+// +build integrate
+
 package infrastructure_test
 
 import (
