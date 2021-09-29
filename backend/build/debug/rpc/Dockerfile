@@ -20,6 +20,6 @@ RUN git switch develop && git pull
 # build
 WORKDIR /source/tdd-sample/backend/cmd
 RUN go mod tidy && \
-  go build -o /bin/todo rest/todo.go
+  go build -o /bin/rpc rpc/main.go
 
-CMD ["/bin/todo"]
+CMD ["/bin/rpc"]
