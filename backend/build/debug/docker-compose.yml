@@ -21,3 +21,13 @@ services:
       - PORT=50001
       - SPANNER_EMULATOR_HOST=host.docker.internal:9010
       - DB_CONNECTION_STRING=projects/test-project/instances/test-instance/databases/test-database
+
+  # rpc-todo-mock:
+  #   container_name: rpc-todo-mock
+  #   build:
+  #     context: ./mock
+  #     dockerfile: rpc_todo.Dockerfile
+  #   ports:
+  #     - "50001:50001"
+  #   environment:
+  #     - PORT=50001

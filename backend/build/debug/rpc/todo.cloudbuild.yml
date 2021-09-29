@@ -4,21 +4,32 @@ steps:
       [
         "build",
         "-t",
-        "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc-todo-image:tag1",
+        "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rpc-todo-image:$BUILD_ID",
         "-f",
         "./todo.Dockerfile",
         ".",
       ]
-    env:
-      - SPANNER_EMULATOR_HOST=spanner
-      - DB_CONNECTION_STRING=connection_string
   - name: "gcr.io/cloud-builders/docker"
     args:
       [
         "push",
-        "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc-todo-image:tag1",
+        "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rpc-todo-image:$BUILD_ID",
+      ]
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      [
+        "run",
+        "deploy",
+        "tdd-sample-rest-todo",
+        "--image",
+        "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rpc-todo-image:$BUILD_ID",
+        "--region",
+        "us-central1",
+        "--update-env-vars",
+        "SPANNER_EMULATOR_HOST=spanner,DB_CONNECTION_STRING=connection_string",
       ]
 images:
   [
-    "us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rpc-todo-image:tag1",
+    "us-central1-docker.pkg.dev/$PROJECT_ID/tdd-sample-repository/tdd-sample-rpc-todo-image:$BUILD_ID",
   ]
