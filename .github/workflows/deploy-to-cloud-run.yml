@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - github-actions
     paths:
       - ".github/workflows/deploy-to-cloud-run.yml"
       - "backend/**"
