@@ -18,8 +18,8 @@ integrate testing command
 
 # Build image
 
-`gcloud builds submit --config todo.cloudbuild.yml`
+`$ gcloud builds submit --config todo.cloudbuild.yml`
 
 # Deploy image to Cloud Run
 
-`gcloud run deploy tdd-sample-rest-todo --image us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rest-todo-image:tag1`
+`$ gcloud run deploy tdd-sample-rest-todo --image us-central1-docker.pkg.dev/tdd-sample-327207/tdd-sample-repository/tdd-sample-rest-todo-image:tag1`
